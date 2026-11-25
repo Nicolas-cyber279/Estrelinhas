@@ -79,7 +79,8 @@ async function Logar() {
             if (lembrar) {
                 localStorage.setItem("sessaoAtiva", JSON.stringify({ Email: email, Senha: senha }));
             }
-
+            
+            localStorage.setItem("emailUsuario", email);
             console.log(`${email} logou.`);
             window.location.href = "pagPrincipal.html";
         }

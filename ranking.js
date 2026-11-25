@@ -45,6 +45,11 @@ async function carregarRanking() {
             const estrelas = document.createElement("td");
 
             posicao.textContent = `${indice + 1}º`;
+            
+            if (usuario.email == localStorage.getItem("emailUsuario")) {
+                posicao.textContent = `⭐ ${indice + 1}º`;
+            }
+
             nome.textContent = usuario.nome ?? "Participante";
             estrelas.textContent =
                 `${Number(usuario.estrelinhas ?? 0).toLocaleString("pt-BR")}`;
