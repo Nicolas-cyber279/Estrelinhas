@@ -1,0 +1,587 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap');
+
+:root {
+    --cor-fundo: #101B2D;
+    --cor-texto: #FFFFFF;
+    --cor-texto-secundario: rgba(255, 255, 255, 0.88);
+    --cor-texto-suave: rgba(255, 255, 255, 0.65);
+
+    --cor-destaque: #83BFD4;
+    --cor-destaque-escuro: #347F9A;
+
+    --cor-borda: rgba(255, 255, 255, 0.8);
+    --cor-borda-input: rgba(255, 255, 255, 0.45);
+
+    --sombra: 0 25px 70px rgba(0, 0, 0, 0.25);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    min-height: 100svh;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 24px;
+
+    position: relative;
+    isolation: isolate;
+
+    font-family: 'Poppins', Arial, Helvetica, sans-serif;
+    color: var(--cor-texto);
+
+    background: var(--cor-fundo);
+}
+
+body::before {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background-image: url("imgs/ceuEstrelado.jpeg");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+body::after {
+    content: "";
+
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: rgba(17, 33, 54, 0.18);
+    pointer-events: none;
+}
+
+/* ESTRUTURA PRINCIPAL */
+
+.pagina {
+    width: 100%;
+    max-width: 612px;
+
+    position: relative;
+    perspective: 1800px;
+}
+
+.inputs-fase {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+.palco {
+    width: 100%;
+    height: min(870px, calc(100svh - 48px));
+    min-height: 680px;
+
+    position: relative;
+}
+
+.giro {
+    width: 100%;
+    height: 100%;
+
+    position: relative;
+
+    transform-style: preserve-3d;
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.25, 1);
+}
+
+#phase2:checked~.palco .giro {
+    transform: rotateY(180deg);
+}
+
+/* PAINÉIS */
+
+.face {
+    width: 100%;
+    height: 100%;
+
+    position: absolute;
+    inset: 0;
+
+    overflow: hidden;
+
+    border: 2px solid var(--cor-borda);
+    border-radius: 36px;
+
+    background: rgba(255, 255, 255, 0.13);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    box-shadow: var(--sombra);
+
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+
+    transform-style: preserve-3d;
+}
+
+.face-login {
+    transform: rotateY(0deg);
+}
+
+.face-cadastro {
+    transform: rotateY(180deg);
+    pointer-events: none;
+}
+
+#phase2:checked~.palco .face-login {
+    pointer-events: none;
+}
+
+#phase2:checked~.palco .face-cadastro {
+    pointer-events: auto;
+}
+
+/* ELEMENTOS DA ANTIGA COMPOSIÇÃO */
+
+.fotografia,
+.legenda-fotografia,
+.cabecalho {
+    display: none;
+}
+
+/* CONTEÚDO */
+
+.conteudo {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 132px 50px 35px;
+
+    background: transparent;
+}
+
+.conteudo-principal {
+    width: 100%;
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    gap: 43px;
+}
+
+/* APRESENTAÇÃO */
+
+.apresentacao {
+    width: 100%;
+}
+
+.identificador,
+.linha {
+    display: none;
+}
+
+.apresentacao h1 {
+    margin-bottom: 13px;
+
+    color: var(--cor-texto);
+    font-size: clamp(2.5rem, 5vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -1.5px;
+}
+
+.apresentacao h1 strong {
+    display: inline;
+    font-weight: 700;
+}
+
+.apresentacao p {
+    max-width: 500px;
+
+    color: var(--cor-texto-secundario);
+    font-size: 1.1rem;
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* FORMULÁRIO */
+
+.formulario {
+    width: 100%;
+    max-width: none;
+}
+
+.titulo-formulario {
+    display: none;
+}
+
+#formLogin,
+#formCadastro {
+    width: 100%;
+}
+
+form {
+    width: 100%;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+}
+
+.campo {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.campo label {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    padding: 0;
+    margin: -1px;
+
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+.campo input {
+    width: 100%;
+    height: 82px;
+
+    padding: 0 28px;
+
+    border: 2px solid var(--cor-borda-input);
+    border-radius: 23px;
+    outline: none;
+
+    background: rgba(255, 255, 255, 0.035);
+
+    color: var(--cor-texto);
+    font-family: inherit;
+    font-size: 1.05rem;
+
+    transition: 0.3s;
+}
+
+.campo input::placeholder {
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.campo input:focus {
+    border-color: var(--cor-destaque);
+
+    background: rgba(255, 255, 255, 0.10);
+
+    box-shadow: 0 0 18px rgba(131, 191, 212, 0.13);
+}
+
+/* LEMBRAR DE MIM */
+
+.lembrar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 11px;
+
+    color: var(--cor-texto-secundario);
+    font-size: 0.95rem;
+}
+
+.lembrar input {
+    width: 23px;
+    height: 23px;
+
+    accent-color: var(--cor-destaque);
+
+    cursor: pointer;
+}
+
+.lembrar label {
+    cursor: pointer;
+}
+
+/* BOTÃO */
+
+form button {
+    width: 100%;
+    min-height: 90px;
+
+    margin-top: 19px;
+
+    border: none;
+    border-radius: 22px;
+
+    background: linear-gradient(110deg,
+            var(--cor-destaque),
+            var(--cor-destaque-escuro));
+
+    color: #FFFFFF;
+
+    font-family: inherit;
+    font-size: 1.45rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+form button:hover {
+    filter: brightness(1.12);
+    transform: translateY(-2px);
+
+    box-shadow: 0 10px 25px rgba(52, 127, 154, 0.2);
+}
+
+form button:active {
+    transform: scale(0.98);
+}
+
+/* ALTERNAR ENTRE LOGIN E CADASTRO */
+
+.alternar {
+    margin-top: 14px;
+
+    color: var(--cor-texto-secundario);
+    font-size: 0.91rem;
+    text-align: center;
+}
+
+.alternar label {
+    margin-left: 4px;
+
+    color: var(--cor-texto);
+    font-weight: 700;
+
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.alternar label:hover {
+    color: var(--cor-destaque);
+}
+
+/* RODAPÉ */
+
+.rodape {
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding-top: 22px;
+}
+
+.rodape span {
+    color: var(--cor-texto-secundario);
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0;
+}
+
+.rodape span:first-child {
+    display: none;
+}
+
+/* CADASTRO */
+
+.formulario-cadastro {
+    margin-top: 0;
+}
+
+.face-cadastro .conteudo-principal {
+    gap: 24px;
+}
+
+.face-cadastro .campo input {
+    height: 64px;
+}
+
+.face-cadastro form {
+    gap: 14px;
+}
+
+.face-cadastro form button {
+    min-height: 68px;
+    margin-top: 5px;
+
+    font-size: 1.15rem;
+}
+
+/* Outra página */
+#ranking {
+    width: 70vw;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+#linkReuniao {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2%;
+}
+#bgRanking {
+    background: var(--cor-destaque-escuro);
+    border: 3px solid var(--cor-borda);
+}
+
+/* RESPONSIVIDADE */
+
+@media (max-width: 600px) {
+
+    body {
+        padding: 14px;
+    }
+
+    .pagina {
+        max-width: 460px;
+    }
+
+    .palco {
+        height: min(820px, calc(100svh - 28px));
+        min-height: 680px;
+    }
+
+    .face {
+        border-radius: 27px;
+    }
+
+    .conteudo {
+        padding: 90px 27px 25px;
+    }
+
+    .conteudo-principal {
+        gap: 35px;
+    }
+
+    .apresentacao h1 {
+        font-size: 2.65rem;
+    }
+
+    .apresentacao p {
+        font-size: 0.96rem;
+    }
+
+    form {
+        gap: 17px;
+    }
+
+    .campo input {
+        height: 68px;
+        padding: 0 20px;
+
+        font-size: 0.95rem;
+        border-radius: 19px;
+    }
+
+    .lembrar {
+        font-size: 0.87rem;
+    }
+
+    form button {
+        min-height: 74px;
+        margin-top: 8px;
+
+        font-size: 1.25rem;
+        border-radius: 19px;
+    }
+
+    .alternar {
+        font-size: 0.82rem;
+    }
+
+    .rodape {
+        padding-top: 18px;
+    }
+
+    .rodape span {
+        font-size: 0.76rem;
+    }
+
+    .face-cadastro .conteudo {
+        padding-top: 65px;
+    }
+
+    .face-cadastro .conteudo-principal {
+        gap: 22px;
+    }
+
+    .face-cadastro .campo input {
+        height: 58px;
+    }
+
+    .face-cadastro form {
+        gap: 12px;
+    }
+
+    .face-cadastro form button {
+        min-height: 62px;
+        margin-top: 4px;
+    }
+}
+
+@media (max-height: 850px) and (min-width: 601px) {
+
+    .palco {
+        height: 740px;
+    }
+
+    .conteudo {
+        padding-top: 85px;
+    }
+
+    .conteudo-principal {
+        gap: 28px;
+    }
+
+    .campo input {
+        height: 68px;
+    }
+
+    form {
+        gap: 16px;
+    }
+
+    form button {
+        min-height: 70px;
+        margin-top: 8px;
+    }
+
+    .face-cadastro .conteudo {
+        padding-top: 55px;
+    }
+
+    .face-cadastro .campo input {
+        height: 55px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+    .giro {
+        transition-duration: 0.01ms;
+    }
+
+}
